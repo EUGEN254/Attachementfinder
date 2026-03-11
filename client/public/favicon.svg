@@ -1,0 +1,16 @@
+<svg width="40" height="40" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Briefcase -->
+  <rect x="12" y="24" width="40" height="26" rx="4" fill="#111827"></rect>
+  
+  <!-- Handle -->
+  <rect x="26" y="18" width="12" height="6" rx="2" fill="#111827"></rect>
+
+  <!-- Graduation cap -->
+  <polygon points="32,10 10,18 32,26 54,18" fill="#F97316"></polygon>
+
+  <!-- Cap base -->
+  <rect x="26" y="26" width="12" height="3" fill="#F97316"></rect>
+
+  <!-- Tassel -->
+  <line x1="42" y1="19" x2="42" y2="28" stroke="#F97316" stroke-width="2"></line>
+</svg>
