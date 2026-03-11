@@ -1,5 +1,3 @@
-// components/students/StudentsSidebar.jsx
-import React from "react";
 import {
   MdDashboard,
   MdWork,
@@ -19,7 +17,7 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAppContext } from "../../context/AppContext";
 
-const StudentsSidebar = ({ collapsed = false, onLinkClick }) => {
+const CompanySidebar = ({ collapsed = false, onLinkClick }) => {
   const { user, logout } = useAppContext();
   const navigate = useNavigate();
 
@@ -252,4 +250,4 @@ const StudentsSidebar = ({ collapsed = false, onLinkClick }) => {
   );
 };
 
-export default StudentsSidebar;
+export default CompanySidebar;

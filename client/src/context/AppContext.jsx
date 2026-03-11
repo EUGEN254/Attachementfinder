@@ -3,6 +3,7 @@ import { useState } from "react";
 import { createContext, useContext } from "react";
 import authService from "../services/authService";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 const AppContext = createContext();
 
 // custom hook to use the context
@@ -17,6 +18,7 @@ export const useAppContext = () => {
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   const currency = "KES";
 
   // load user on mount(check if already logged in)
@@ -74,7 +76,8 @@ export const AppProvider = ({ children }) => {
       const result = await authService.logout();
       if (result.data) {
         setUser(null);
-        return { data: result.data };
+        navigate("/");
+        toast.success(result.data.message);
       } else {
         return { error: result.error };
       }

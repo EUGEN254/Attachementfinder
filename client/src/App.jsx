@@ -16,6 +16,7 @@ import CompanyDashboard from "./companies/companyPages/CompanyDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAppContext } from "./context/AppContext";
 import StudentDashboardLayout from "./components/students/StudentDashboardLayout";
+import CompanyDashboardLayout from "./companies/companyComponents/CompanyDashboardLayout";
 
 const App = () => {
   const location = useLocation();
@@ -57,10 +58,12 @@ const App = () => {
             path="/company/dashboard"
             element={
               <ProtectedRoute allowedUserType="company">
-                <CompanyDashboard />
+                <CompanyDashboardLayout />
               </ProtectedRoute>
             }
-          />
+          >
+            <Route index element={<CompanyDashboard />} />
+             </Route>
         </Routes>
       </main>
       {!isUsersRoute && <Footer />}

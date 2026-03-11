@@ -1,24 +1,25 @@
 // components/students/StudentDashboardLayout.jsx
 import React, { useState, useRef, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { 
-  MdMenu, 
-  MdChevronLeft, 
-  MdChevronRight, 
-  MdClose, 
-  MdNotifications, 
+import {
+  MdMenu,
+  MdChevronLeft,
+  MdChevronRight,
+  MdClose,
+  MdNotifications,
   MdPerson,
   MdSettings,
   MdLogout,
   MdEmail,
   MdKeyboardArrowUp,
-  MdKeyboardArrowDown
+  MdKeyboardArrowDown,
 } from "react-icons/md";
-import StudentsSidebar from "./StudentsSidebar";
-import TopNavbar from "../TopNavbar";
-import { useAppContext } from "../../context/AppContext";
 
-const StudentDashboardLayout = () => {
+import { useAppContext } from "../../context/AppContext";
+import CompanySidebar from "./CompanySidebar";
+import TopNavbar from "../../components/TopNavbar";
+
+const CompanyDashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
@@ -29,7 +30,10 @@ const StudentDashboardLayout = () => {
   // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+      if (
+        profileMenuRef.current &&
+        !profileMenuRef.current.contains(event.target)
+      ) {
         setProfileMenuOpen(false);
       }
     };
@@ -62,19 +66,21 @@ const StudentDashboardLayout = () => {
     <div className="min-h-screen bg-gray-50 flex">
       {/* Mobile Overlay */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar with responsive behavior */}
-      <div className={`
+      <div
+        className={`
         fixed lg:static inset-y-0 left-0 z-30
         transform transition-transform duration-300 ease-in-out
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-      `}>
-        <StudentsSidebar
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+      `}
+      >
+        <CompanySidebar
           collapsed={sidebarCollapsed}
           onLinkClick={() => setSidebarOpen(false)}
         />
@@ -84,7 +90,7 @@ const StudentDashboardLayout = () => {
       <div className="flex-1 min-w-0 flex flex-col">
         {/* TopNavbar */}
         <TopNavbar />
-        
+
         {/* Top Bar */}
         <div className="bg-white shadow-sm sticky top-0 z-10">
           <div className="flex items-center justify-between px-4 h-12">
@@ -104,9 +110,13 @@ const StudentDashboardLayout = () => {
                 className="hidden lg:flex items-center justify-center w-8 h-8 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
                 title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
               >
-                {sidebarCollapsed ? <MdChevronRight size={20} /> : <MdChevronLeft size={20} />}
+                {sidebarCollapsed ? (
+                  <MdChevronRight size={20} />
+                ) : (
+                  <MdChevronLeft size={20} />
+                )}
               </button>
-              
+
               <span className="font-semibold text-gray-900 lg:hidden">
                 Student Dashboard
               </span>
@@ -117,16 +127,19 @@ const StudentDashboardLayout = () => {
               {/* Welcome message - visible on desktop */}
               {user && (
                 <span className="hidden lg:inline text-sm text-gray-600">
-                  Welcome, <span className="font-semibold text-gray-900">{user.name}</span>
+                  Welcome,{" "}
+                  <span className="font-semibold text-gray-900">
+                    {user.name}
+                  </span>
                 </span>
               )}
-              
+
               {/* Notification icon */}
               <button className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg relative">
                 <MdNotifications size={20} />
                 <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
               </button>
-              
+
               {/* Profile dropdown */}
               <div className="relative" ref={profileMenuRef}>
                 <button
@@ -137,7 +150,10 @@ const StudentDashboardLayout = () => {
                   {profileMenuOpen ? (
                     <MdKeyboardArrowUp size={16} className="hidden sm:block" />
                   ) : (
-                    <MdKeyboardArrowDown size={16} className="hidden sm:block" />
+                    <MdKeyboardArrowDown
+                      size={16}
+                      className="hidden sm:block"
+                    />
                   )}
                 </button>
 
@@ -146,7 +162,9 @@ const StudentDashboardLayout = () => {
                   <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg py-2 border border-gray-200 z-50">
                     {/* User Info */}
                     <div className="px-4 py-3 border-b border-gray-100">
-                      <p className="text-sm font-semibold text-gray-900">{user?.name || "Student User"}</p>
+                      <p className="text-sm font-semibold text-gray-900">
+                        {user?.name || "Student User"}
+                      </p>
                       <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
                         <MdEmail size={12} />
                         {user?.email || "student@example.com"}
@@ -198,4 +216,4 @@ const StudentDashboardLayout = () => {
   );
 };
 
-export default StudentDashboardLayout;
+export default CompanyDashboardLayout;

@@ -1,13 +1,12 @@
 import React from "react";
 import { useAppContext } from "../../context/AppContext";
-import TopNavbar from "../../components/TopNavbar";
+
 
 const CompanyDashboard = () => {
   const { logout } = useAppContext();
   return (
     <div>
       <div className="-mt-10">
-        <TopNavbar />
       </div>
       <button
         type="button"
