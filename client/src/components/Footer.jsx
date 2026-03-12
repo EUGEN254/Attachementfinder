@@ -200,8 +200,8 @@ const Footer = () => {
               <Link to="/terms" className="hover:text-blue-400 transition-colors">
                 Terms of Service
               </Link>
-              <Link to="/cookies" className="hover:text-blue-400 transition-colors">
-                Cookie Policy
+              <Link to="/sitemap" className="hover:text-blue-400 transition-colors">
+                Sitemap
               </Link>
             </div>
           </div>

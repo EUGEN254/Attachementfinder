@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // React Icons
@@ -9,19 +9,49 @@ import {
   MdBookmark,
   MdTrackChanges,
   MdMenuBook,
+  MdPerson,
+  MdKeyboardArrowUp,
+  MdKeyboardArrowDown,
+  MdEmail,
+  MdSettings,
+  MdLogout,
 } from "react-icons/md";
 import TopNavbar from "./TopNavbar";
+import { useAppContext } from "../context/AppContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { user, logout } = useAppContext();
+
+  const profileMenuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        profileMenuRef.current &&
+        !profileMenuRef.current.contains(event.target)
+      ) {
+        setProfileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const navLinks = [
-    { name: "Home", path: "/" },
+   
     { name: "Internships", path: "/internships" },
     { name: "Companies", path: "/companies" },
-    { name: "My Applications", path: "/my-applications" },
+     { name: "How It Works", path: "/how-it-works" },
+    ...(user
+      ? [{ name: "My Applications", path: "/student/dashboard/applications" }]
+      : []),
   ];
 
   const moreLinks = [
@@ -41,6 +71,10 @@ const Navbar = () => {
       icon: <MdMenuBook size={20} />,
     },
   ];
+
+  const handleLogout = async () => {
+    await logout();
+  };
 
   return (
     <nav className="bg-white/80 backdrop-blur-lg border-b border-gray-200 fixed w-full top-0 z-50">
@@ -113,19 +147,86 @@ const Navbar = () => {
             </div>
 
             {/* Login icon */}
-            <MdLogin
-              size={22}
-              onClick={() => navigate("/create-account")}
-              className="cursor-pointer hover:text-gray-500 transition"
-            />
+            {user ? (
+              <div className="relative" ref={profileMenuRef}>
+                <button
+                  onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                  className="flex items-center gap-1 p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <MdPerson size={20} />
+                  {profileMenuOpen ? (
+                    <MdKeyboardArrowUp size={16} className="hidden sm:block" />
+                  ) : (
+                    <MdKeyboardArrowDown
+                      size={16}
+                      className="hidden sm:block"
+                    />
+                  )}
+                </button>
 
-            {/* Button - Clerk style */}
-            <button
-              onClick={() => navigate("/create-account")}
-              className="bg-black text-white px-5 py-2 rounded-full hover:bg-gray-800 transition"
-            >
-              Get Started
-            </button>
+                {profileMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg py-2 border border-gray-200 z-50">
+                    <div className="px-4 py-3 border-b border-gray-100">
+                      <p className="text-sm font-semibold text-gray-900">
+                        {user?.name || "Student User"}
+                      </p>
+                      <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
+                        <MdEmail size={12} />
+                        {user?.email || "student@example.com"}
+                      </p>
+                    </div>
+
+                    <div className="py-2">
+                      <button
+                        onClick={() => {
+                          navigate("/student/dashboard/profile");
+                          setProfileMenuOpen(false);
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        <MdPerson size={16} className="text-gray-500" />
+                        Your Profile
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          navigate("/student/dashboard/settings");
+                          setProfileMenuOpen(false);
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        <MdSettings size={16} className="text-gray-500" />
+                        Settings
+                      </button>
+                    </div>
+
+                    <div className="border-t border-gray-100 py-2">
+                      <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                      >
+                        <MdLogout size={16} />
+                        Logout
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <MdLogin
+                  size={22}
+                  onClick={() => navigate("/create-account")}
+                  className="cursor-pointer hover:text-gray-500 transition"
+                />
+                <button
+                  onClick={() => navigate("/create-account")}
+                  className="bg-black text-white px-5 py-2 rounded-full hover:bg-gray-800 transition"
+                >
+                  Get Started
+                </button>
+              </>
+            )}
           </div>
 
           {/* Mobile Button */}

@@ -1,3 +1,5 @@
+
+ // pages/MyApplication.jsx
 import React, { useState } from "react";
 import {
   MdWork,
@@ -14,15 +16,21 @@ import {
   MdArrowBack,
   MdLogin,
 } from "react-icons/md";
-import { applications, internships, companies, users } from "../assets/assets";
+import { applications, internships, companies,users } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
 
 const MyApplication = () => {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Toggle this for demo
+  const { isAuthenticated, user } = useAppContext(); // Changed from isLoggedIn to isAuthenticated
   const [selectedStatus, setSelectedStatus] = useState("all");
 
-  // For demo purposes - using first user as logged-in user
+  // Get applications for current user (using user from context)
+  // const userApplications = users[0] //&& isAuthenticated && user 
+  //   ? applications.filter((app) => app.studentId === user[0].id)
+  //   : [];
+
+     // For demo purposes - using first user as logged-in user
   const currentUser = users[0]; // John Mwangi
 
   // Get applications for current user
@@ -110,8 +118,8 @@ const MyApplication = () => {
     );
   };
 
-  // Not Logged In View
-  if (!isLoggedIn) {
+  // Not Authenticated View
+  if (!isAuthenticated) {
     return (
       <section className="mt-10 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -145,7 +153,7 @@ const MyApplication = () => {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
-                  onClick={() => setIsLoggedIn(true)}
+                  onClick={() => navigate("/create-account")}
                   className="inline-flex items-center justify-center px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors text-lg font-medium"
                 >
                   <MdLogin className="mr-2" size={20} />
@@ -205,7 +213,7 @@ const MyApplication = () => {
     );
   }
 
-  // Logged In View
+  // Authenticated View
   return (
     <section className="py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -214,39 +222,24 @@ const MyApplication = () => {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center border-2 border-gray-200">
-                {currentUser.profileImage ? (
-                  <img
-                    src={currentUser.profileImage}
-                    alt={currentUser.name}
-                    className="w-full h-full rounded-full object-cover"
-                  />
-                ) : (
-                  <MdPerson size={32} className="text-gray-400" />
-                )}
+                <MdPerson size={32} className="text-gray-400" />
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">
-                  {currentUser.name}
+                  {user?.name || "Student User"}
                 </h1>
                 <div className="flex flex-wrap gap-3 mt-1">
                   <span className="flex items-center text-sm text-gray-600">
                     <MdEmail className="mr-1" size={14} />
-                    {currentUser.email}
+                    {user?.email || "student@example.com"}
                   </span>
                   <span className="flex items-center text-sm text-gray-600">
                     <MdSchool className="mr-1" size={14} />
-                    {currentUser.university}
+                    Student
                   </span>
                 </div>
               </div>
             </div>
-
-            <button
-              onClick={() => setIsLoggedIn(false)}
-              className="mt-4 md:mt-0 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm"
-            >
-              Sign Out
-            </button>
           </div>
         </div>
 
@@ -263,7 +256,7 @@ const MyApplication = () => {
                 onClick={() => setSelectedStatus("all")}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   selectedStatus === "all"
-                    ? "bg-gray-600 text-white"
+                    ? "bg-gray-900 text-white"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
@@ -315,11 +308,15 @@ const MyApplication = () => {
                       {/* Left Side - Company and Role */}
                       <div className="flex items-start gap-4 mb-4 md:mb-0">
                         <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center p-2 border border-gray-200">
-                          <img
-                            src={app.company?.logo}
-                            alt={app.company?.name}
-                            className="w-full h-full object-contain"
-                          />
+                          {app.company?.logo ? (
+                            <img
+                              src={app.company.logo}
+                              alt={app.company.name}
+                              className="w-full h-full object-contain"
+                            />
+                          ) : (
+                            <MdWork size={24} className="text-gray-400" />
+                          )}
                         </div>
                         <div>
                           <h3 className="text-xl font-bold text-gray-900">
@@ -373,7 +370,7 @@ const MyApplication = () => {
 
                     {/* Action Buttons */}
                     <div className="mt-4 flex gap-3">
-                      <button className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium">
+                      <button className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium">
                         View Details
                       </button>
                       {app.status === "Interview Scheduled" && (
@@ -401,7 +398,7 @@ const MyApplication = () => {
               </p>
               <button
                 onClick={() => navigate("/internships")}
-                className="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                className="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium"
               >
                 Browse Internships
               </button>

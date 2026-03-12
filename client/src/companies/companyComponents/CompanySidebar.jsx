@@ -37,7 +37,7 @@ const CompanySidebar = ({ collapsed = false, onLinkClick }) => {
       {
         name: "Find Internships",
         icon: <MdWork className="w-5 h-5" />,
-        path: "/student/dashboard/internships",
+        path: "/internships",
       },
       {
         name: "My Applications",

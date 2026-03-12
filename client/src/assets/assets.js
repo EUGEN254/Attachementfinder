@@ -324,3 +324,9 @@ export const applications = [
     appliedAt: "2026-03-06T13:10:00Z",
   },
 ];
+
+
+  // Get applications for current user (using user from context)
+  // const userApplications = users[0] //&& isAuthenticated && user 
+  //   ? applications.filter((app) => app.studentId === user[0].id)
+  //   : [];
