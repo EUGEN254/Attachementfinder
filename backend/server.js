@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import logger from "./utils/logger.js";
 import sql, { testConnection } from "./configs/connectDB.js";
 import authRouter from "./routes/authRouter.js";
+import internshipRouter from "./routes/internshipRouter.js";
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.get("/", (req, res) => {
 
 //routes
 app.use("/api/auth", authRouter);
+app.use("/api/internships", internshipRouter);
 
 const PORT = process.env.PORT || 5000;
 
