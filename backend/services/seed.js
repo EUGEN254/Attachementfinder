@@ -1,148 +1,148 @@
-// // scripts/createCompanies.js
-// // import axios from 'axios';
-// // import logger from '../utils/logger.js';
+// scripts/createCompanies.js
+// import axios from 'axios';
+// import logger from '../utils/logger.js';
 
-// // const API_URL = ""; 
+// const API_URL = ""; 
 
-// // const companies = [
-// //   {
-// //     email: "safaricom@company.com",
-// //     password: "Company@123",
-// //     userType: "company",
-// //     companyName: "Safaricom"
-// //   },
-// //   {
-// //     email: "kcb@company.com",
-// //     password: "Company@123",
-// //     userType: "company",
-// //     companyName: "KCB Bank"
-// //   },
-// //   {
-// //     email: "twiga@company.com",
-// //     password: "Company@123",
-// //     userType: "company",
-// //     companyName: "Twiga Foods"
-// //   },
-// //   {
-// //     email: "andela@company.com",
-// //     password: "Company@123",
-// //     userType: "company",
-// //     companyName: "Andela"
-// //   },
-// //   {
-// //     email: "equity@company.com",
-// //     password: "Company@123",
-// //     userType: "company",
-// //     companyName: "Equity Bank"
-// //   },
-// //   {
-// //     email: "mkopa@company.com",
-// //     password: "Company@123",
-// //     userType: "company",
-// //     companyName: "M-KOPA Solar"
-// //   },
-// //   {
-// //     email: "cellulant@company.com",
-// //     password: "Company@123",
-// //     userType: "company",
-// //     companyName: "Cellulant"
-// //   },
-// //   {
-// //     email: "brck@company.com",
-// //     password: "Company@123",
-// //     userType: "company",
-// //     companyName: "BRCK"
-// //   },
-// //   {
-// //     email: "copia@company.com",
-// //     password: "Company@123",
-// //     userType: "company",
-// //     companyName: "Copia Kenya"
-// //   },
-// //   {
-// //     email: "ihub@company.com",
-// //     password: "Company@123",
-// //     userType: "company",
-// //     companyName: "iHub"
-// //   }
-// // ];
+// const companies = [
+//   {
+//     email: "safaricom@company.com",
+//     password: "Company@123",
+//     userType: "company",
+//     companyName: "Safaricom"
+//   },
+//   {
+//     email: "kcb@company.com",
+//     password: "Company@123",
+//     userType: "company",
+//     companyName: "KCB Bank"
+//   },
+//   {
+//     email: "twiga@company.com",
+//     password: "Company@123",
+//     userType: "company",
+//     companyName: "Twiga Foods"
+//   },
+//   {
+//     email: "andela@company.com",
+//     password: "Company@123",
+//     userType: "company",
+//     companyName: "Andela"
+//   },
+//   {
+//     email: "equity@company.com",
+//     password: "Company@123",
+//     userType: "company",
+//     companyName: "Equity Bank"
+//   },
+//   {
+//     email: "mkopa@company.com",
+//     password: "Company@123",
+//     userType: "company",
+//     companyName: "M-KOPA Solar"
+//   },
+//   {
+//     email: "cellulant@company.com",
+//     password: "Company@123",
+//     userType: "company",
+//     companyName: "Cellulant"
+//   },
+//   {
+//     email: "brck@company.com",
+//     password: "Company@123",
+//     userType: "company",
+//     companyName: "BRCK"
+//   },
+//   {
+//     email: "copia@company.com",
+//     password: "Company@123",
+//     userType: "company",
+//     companyName: "Copia Kenya"
+//   },
+//   {
+//     email: "ihub@company.com",
+//     password: "Company@123",
+//     userType: "company",
+//     companyName: "iHub"
+//   }
+// ];
 
-// // async function createCompany(companyData) {
-// //   try {
-// //     logger.info(`Creating company: ${companyData.companyName}...`);
+// async function createCompany(companyData) {
+//   try {
+//     logger.info(`Creating company: ${companyData.companyName}...`);
     
-// //     const response = await axios.post(`${API_URL}/register`, companyData, {
-// //       headers: {
-// //         'Content-Type': 'application/json'
-// //       }
-// //     });
+//     const response = await axios.post(`${API_URL}/register`, companyData, {
+//       headers: {
+//         'Content-Type': 'application/json'
+//       }
+//     });
 
-// //     logger.success(`✅ Created: ${companyData.companyName}`);
-// //     return { success: true, data: response.data };
+//     logger.success(`✅ Created: ${companyData.companyName}`);
+//     return { success: true, data: response.data };
     
-// //   } catch (error) {
-// //     if (error.response) {
-// //       // The request was made and the server responded with a status code
-// //       // that falls out of the range of 2xx
-// //       if (error.response.data?.message === "Email already registered") {
-// //         logger.warn(`⚠️ Already exists: ${companyData.companyName} (${companyData.email})`);
-// //         return { success: true, exists: true };
-// //       }
-// //       logger.error(`❌ Failed: ${companyData.companyName} - ${error.response.data?.message || error.message}`);
-// //     } else if (error.request) {
-// //       // The request was made but no response was received
-// //       logger.error(`❌ No response from server for: ${companyData.companyName}`);
-// //     } else {
-// //       // Something happened in setting up the request that triggered an Error
-// //       logger.error(`❌ Error: ${companyData.companyName} - ${error.message}`);
-// //     }
-// //     return { success: false, error: error.message };
-// //   }
-// // }
+//   } catch (error) {
+//     if (error.response) {
+//       // The request was made and the server responded with a status code
+//       // that falls out of the range of 2xx
+//       if (error.response.data?.message === "Email already registered") {
+//         logger.warn(`⚠️ Already exists: ${companyData.companyName} (${companyData.email})`);
+//         return { success: true, exists: true };
+//       }
+//       logger.error(`❌ Failed: ${companyData.companyName} - ${error.response.data?.message || error.message}`);
+//     } else if (error.request) {
+//       // The request was made but no response was received
+//       logger.error(`❌ No response from server for: ${companyData.companyName}`);
+//     } else {
+//       // Something happened in setting up the request that triggered an Error
+//       logger.error(`❌ Error: ${companyData.companyName} - ${error.message}`);
+//     }
+//     return { success: false, error: error.message };
+//   }
+// }
 
-// // async function createAllCompanies() {
-// //   logger.info("🚀 Starting company registration...");
-// //   console.log("=================================");
+// async function createAllCompanies() {
+//   logger.info("🚀 Starting company registration...");
+//   console.log("=================================");
   
-// //   let successCount = 0;
-// //   let existsCount = 0;
-// //   let failedCount = 0;
+//   let successCount = 0;
+//   let existsCount = 0;
+//   let failedCount = 0;
 
-// //   for (let i = 0; i < companies.length; i++) {
-// //     const company = companies[i];
+//   for (let i = 0; i < companies.length; i++) {
+//     const company = companies[i];
     
-// //     console.log(`\n📌 [${i + 1}/${companies.length}] Processing: ${company.companyName}`);
+//     console.log(`\n📌 [${i + 1}/${companies.length}] Processing: ${company.companyName}`);
     
-// //     const result = await createCompany(company);
+//     const result = await createCompany(company);
     
-// //     if (result.success) {
-// //       if (result.exists) {
-// //         existsCount++;
-// //       } else {
-// //         successCount++;
-// //       }
-// //     } else {
-// //       failedCount++;
-// //     }
+//     if (result.success) {
+//       if (result.exists) {
+//         existsCount++;
+//       } else {
+//         successCount++;
+//       }
+//     } else {
+//       failedCount++;
+//     }
     
-// //     // Small delay to avoid overwhelming the server
-// //     await new Promise(resolve => setTimeout(resolve, 1000));
-// //   }
+//     // Small delay to avoid overwhelming the server
+//     await new Promise(resolve => setTimeout(resolve, 1000));
+//   }
 
-// //   // Summary
-// //   console.log("\n=================================");
-// //   logger.info("📊 Registration Summary:");
-// //   console.log("=================================");
-// //   logger.success(`✅ New companies created: ${successCount}`);
-// //   logger.warn(`⚠️ Already existing: ${existsCount}`);
-// //   logger.error(`❌ Failed: ${failedCount}`);
-// //   console.log("=================================");
-// // }
+//   // Summary
+//   console.log("\n=================================");
+//   logger.info("📊 Registration Summary:");
+//   console.log("=================================");
+//   logger.success(`✅ New companies created: ${successCount}`);
+//   logger.warn(`⚠️ Already existing: ${existsCount}`);
+//   logger.error(`❌ Failed: ${failedCount}`);
+//   console.log("=================================");
+// }
 
-// // // Run the function
-// // createAllCompanies();
+// Run the function
+// createAllCompanies();
 
-// // scripts/seedInternships.js
+// scripts/seedInternships.js
 // import axios from 'axios';
 // import FormData from 'form-data';
 // import fs from 'fs';
